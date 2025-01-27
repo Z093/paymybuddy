@@ -7,24 +7,29 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name ="Transaction")
+@Table(name = "transaction")
 @Data
 public class Transaction {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Double amount;
-    private String description;
-    private LocalDateTime transactionDate;
 
     @ManyToOne
-    @JoinColumn(name = "sender_account_id")
-    private Account sender;
+    @JoinColumn(name = "sender_id", nullable = false)
+    private User sender; // L'utilisateur qui envoie de l'argent
 
     @ManyToOne
-    @JoinColumn(name = "receiver_account_id")
-    private Account receiver;
+    @JoinColumn(name = "receiver_id", nullable = false)
+    private User receiver; // L'utilisateur qui reçoit l'argent
 
+    private double amount; // Montant du transfert
 
+    private LocalDateTime timestamp; // Date et heure de la transaction
 }
+
+
+
+
+
 

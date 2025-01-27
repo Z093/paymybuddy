@@ -2,26 +2,37 @@ package com.example.paymybuddy.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name ="user")
 @Data
 public class User {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
     private String mail;
+
     private String password;
-    private String fistName;
+    private String firstName;
     private String lastName;
     private double balance;
     private String role;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Account account;
+    @ManyToMany
+    @JoinTable(
+            name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id")
+    )
+    private Set<User> friends = new HashSet<>();
+
+
 
 
 
