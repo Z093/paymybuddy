@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pay My Buddy - Connexion</title>
+  <link rel="stylesheet" href="Login.css">
+</head>
+<body>
+<div class="container">
+  <div class="form-card">
+    <button class="header-btn">Pay My Buddy</button>
+    <form action="/api/v1/login" method="POST">
+      <input type="email" name="email" placeholder="Mail" required>
+      <input type="password" name="password" placeholder="Mot de passe" required>
+      <button type="submit" class="submit-btn">Se connecter</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>
