@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class PaymentService {
+public class TransactionService {
 
     @Autowired
     private UserRepository userRepository;

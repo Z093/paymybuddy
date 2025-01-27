@@ -1,7 +1,7 @@
 package com.example.paymybuddy.ControllerTest;
 
-import com.example.paymybuddy.controller.PaymentController;
-import com.example.paymybuddy.service.PaymentService;
+import com.example.paymybuddy.controller.TransactionController;
+import com.example.paymybuddy.service.TransactionService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +13,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(PaymentController.class)
+@WebMvcTest(TransactionController.class)
 @AutoConfigureMockMvc(addFilters = false)
-public class PaymentControllerTest {
+public class TransactionControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private PaymentService paymentService;
+    private TransactionService transactionService;
 
     @Test
     public void testMakePayment() throws Exception {
@@ -31,7 +31,7 @@ public class PaymentControllerTest {
         double amount = 100.0;
 
         // Simulation du comportement du service
-        Mockito.doNothing().when(paymentService).makePayment(senderId, receiverId, amount);
+        Mockito.doNothing().when(transactionService).makePayment(senderId, receiverId, amount);
 
         // Exécution de la requête HTTP POST
         mockMvc.perform(post("/api/v1/transfer")
@@ -41,6 +41,6 @@ public class PaymentControllerTest {
                 .andExpect(status().isOk());
 
         // Vérification que le service a été appelé avec les bons paramètres
-        Mockito.verify(paymentService).makePayment(senderId, receiverId, amount);
+        Mockito.verify(transactionService).makePayment(senderId, receiverId, amount);
     }
 }

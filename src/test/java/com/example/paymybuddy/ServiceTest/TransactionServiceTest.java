@@ -4,7 +4,7 @@ import com.example.paymybuddy.model.Transaction;
 import com.example.paymybuddy.model.User;
 import com.example.paymybuddy.repository.TransactionRepository;
 import com.example.paymybuddy.repository.UserRepository;
-import com.example.paymybuddy.service.PaymentService;
+import com.example.paymybuddy.service.TransactionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -12,13 +12,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class PaymentServiceTest {
+class TransactionServiceTest {
 
     @Mock
     private UserRepository userRepository;
@@ -27,7 +26,7 @@ class PaymentServiceTest {
     private TransactionRepository transactionRepository;
 
     @InjectMocks
-    private PaymentService paymentService;
+    private TransactionService transactionService;
 
     @BeforeEach
     void setUp() {
@@ -53,7 +52,7 @@ class PaymentServiceTest {
         when(userRepository.findById(receiverId)).thenReturn(Optional.of(receiver));
 
         // Act
-        paymentService.makePayment(senderId, receiverId, amount);
+        transactionService.makePayment(senderId, receiverId, amount);
 
         // Assert
         assertEquals(50.0, sender.getBalance());
@@ -92,7 +91,7 @@ class PaymentServiceTest {
 
         // Act & Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () ->
-                paymentService.makePayment(senderId, receiverId, amount)
+                transactionService.makePayment(senderId, receiverId, amount)
         );
 
         assertEquals("Insufficient balance", exception.getMessage());
@@ -112,7 +111,7 @@ class PaymentServiceTest {
 
         // Act & Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () ->
-                paymentService.makePayment(senderId, receiverId, 50.0)
+                transactionService.makePayment(senderId, receiverId, 50.0)
         );
 
         assertEquals("Sender not found", exception.getMessage());
@@ -135,7 +134,7 @@ class PaymentServiceTest {
 
         // Act & Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () ->
-                paymentService.makePayment(senderId, receiverId, 50.0)
+                transactionService.makePayment(senderId, receiverId, 50.0)
         );
 
         assertEquals("Receiver not found", exception.getMessage());

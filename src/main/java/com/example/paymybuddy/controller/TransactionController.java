@@ -1,6 +1,6 @@
 package com.example.paymybuddy.controller;
 
-import com.example.paymybuddy.service.PaymentService;
+import com.example.paymybuddy.service.TransactionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1")
-public class PaymentController {
+public class TransactionController {
 
     @Autowired
-    private PaymentService paymentService;
+    private TransactionService transactionService;
 
     @PostMapping("/transfer")
     public void makePayment(@RequestParam Long senderId,
                             @RequestParam Long receiverId,
                             @RequestParam double amount) {
-        paymentService.makePayment(senderId, receiverId, amount);
+        transactionService.makePayment(senderId, receiverId, amount);
     }
 }
